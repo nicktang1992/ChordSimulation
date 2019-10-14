@@ -43,7 +43,12 @@ public class ChordNode {
 	
 	public ChordNode findPredecessor(int id) {
 		ChordNode currNode = this;
-		while(!inInterval(currNode.hash, currNode.fingerTable[0].hash,id)) {
+		while(!inInterval(
+				currNode.hash, 
+				currNode.fingerTable[0].hash,
+				false, true,
+				id
+				)) {
 			currNode = currNode.closestPreceedingFinger(id);
 		}
 		return currNode;
@@ -59,7 +64,12 @@ public class ChordNode {
 		}
 		
 		for(int power = HASH_LENGTH-1; power >= 0; power--) {
-			if(inInterval(this.hash, id, this.fingerTable[power].hash)) {
+			if(inInterval(
+					this.hash, 
+					id, 
+					false, false,
+					this.fingerTable[power].hash
+					)) {
 				return this.fingerTable[power];
 			}
 		}
@@ -85,10 +95,15 @@ public class ChordNode {
 		this.fingerTable[0] = attachingNode.findSuccessor(this.hash+1);
 		this.predicessor = this.fingerTable[0].predicessor;
 		this.fingerTable[0].predicessor = this;
+		this.predicessor.fingerTable[0] = this;
 		
 		for(int power = 1; power < HASH_LENGTH; power++) {
-			if(inInterval(this.hash,this.fingerTable[power-1].hash, 
-					(this.hash + (int) Math.pow(2, power))%HASH_UPPER_LIMIT)) {
+			if(inInterval(
+					this.hash,
+					this.fingerTable[power-1].hash, 
+					true, false,
+					(this.hash + (int) Math.pow(2, power))%HASH_UPPER_LIMIT
+					)) {
 				this.fingerTable[power] = this.fingerTable[power-1];
 			}else {
 				this.fingerTable[power] = 
@@ -98,15 +113,25 @@ public class ChordNode {
 	}
 	
 	private void updateOthers() {
-		for(int power = 1; power < HASH_LENGTH; power++) {
-			ChordNode nodePointingCurrentNode = 
-					this.findPredecessor((this.hash - (int) Math.pow(2, power-1)+HASH_UPPER_LIMIT)%HASH_UPPER_LIMIT);
-			updateFingerTables(nodePointingCurrentNode,power-1);
+		for(int power = 0; power < HASH_LENGTH; power++) {
+			ChordNode nodePointingCurrentNode = this.findPredecessor(
+					(this.hash - (int) Math.pow(2, power) + HASH_UPPER_LIMIT)
+					%HASH_UPPER_LIMIT
+					);
+			nodePointingCurrentNode.updateFingerTables(this,power);
 		}
 	}
 	
 	private void updateFingerTables(ChordNode addingNode, int power) {
-		if(inInterval(this.hash,this.fingerTable[power].hash,addingNode.hash)) {
+		if(addingNode==this) {
+			return;
+		}
+		if(inInterval(
+				this.hash, 
+				this.fingerTable[power].hash, 
+				true, false, 
+				addingNode.hash
+				)) {
 			this.fingerTable[power] = addingNode;
 			this.predicessor.updateFingerTables(addingNode, power);
 		}
@@ -172,12 +197,12 @@ public class ChordNode {
 	*/
 	
 	public String toString() {
-		return IPAddress+' '+ hash;
+		return ""+hash;
 	}
 	
 	
-	//Return whether target is between start (inclusive) and end (exclusive)
-	public static boolean inInterval (int intervalStart, int intervalEnd, int target) {
+	//Return whether target is between start and end. 
+	public static boolean inInterval (int intervalStart, int intervalEnd, boolean includeStart, boolean includeEnd, int target) {
 		try {
 			if(!validHash(intervalStart)) {
 				throw new Exception("Interval start out of range with value "+ intervalStart);
@@ -193,16 +218,28 @@ public class ChordNode {
 			e.printStackTrace();
 			return false;
 		}
+		
+		// if target falls on one of the endpoint, and this endpoint is included, return true
+		if(includeStart && intervalStart==target) {
+			return true;
+		}
+		
+		if(includeEnd && intervalEnd == target) {
+			return false;
+		}
+		
+		// check if target falls in exclusive interval
 		if(intervalStart == intervalEnd) {
+			//if start equals end, the interval contains all circle.
 			return true;
 		}else if(intervalStart < intervalEnd) {
-			if(target>= intervalStart && target > intervalEnd) {
+			if(target> intervalStart && target < intervalEnd) {
 				return true;
 			}else {
 				return false;
 			}
 		}else { // if start > end
-			if(target >= intervalStart || target < intervalEnd) {
+			if(target > intervalStart || target < intervalEnd) {
 				return true;
 			}else {
 				return false;

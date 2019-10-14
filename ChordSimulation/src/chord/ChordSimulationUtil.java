@@ -5,11 +5,12 @@ import static chord.Configuration.HASH_LENGTH;
 public class ChordSimulationUtil {
 
 	public static void printAll(ChordNode startNode) {
-		ChordNode currentNode = startNode;
-		do {
+		printNode(startNode);
+		ChordNode currentNode = startNode.getFingerTableEntry(0);
+		while(currentNode!=startNode) {
 			printNode(currentNode);
 			currentNode = currentNode.getFingerTableEntry(0);
-		}while(currentNode != startNode.getPredicessor());
+		}
 	}
 	
 	public static void printNode(ChordNode currentNode) {

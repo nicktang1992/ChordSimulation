@@ -1,5 +1,6 @@
 package chord;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import static chord.ChordSimulationUtil.*;
 
@@ -29,7 +30,15 @@ public class Simulation {
 		
 		a175.add(null);
 		c151.add(a175);
+		
+		ChordSimulationUtil.printAll(a175);
+
+		System.out.println("\033[H\033[2J");
+
 		d054.add(c151);
+		
+		ChordSimulationUtil.printAll(a175);
+		
 		e229.add(a175);
 		b252.add(d054);
 
