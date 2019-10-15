@@ -225,7 +225,7 @@ public class ChordNode {
 		}
 		
 		if(includeEnd && intervalEnd == target) {
-			return false;
+			return true;
 		}
 		
 		// check if target falls in exclusive interval

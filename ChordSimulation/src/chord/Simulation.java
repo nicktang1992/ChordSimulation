@@ -31,29 +31,39 @@ public class Simulation {
 		//c151.add(null);
 		//a175.add(c151);
 		
+		ChordNode n65 = new ChordNode("65");
+		n65.setHash(65);
 		
-		a175.add(null);
-		c151.add(a175);
+		ChordNode n129 = new ChordNode("129");
+		n129.setHash(129);
+		
+		n65.add(null);
+		n129.add(n65);
+		
+		printAll(n65);
+		
+		//a175.add(null);
+		//c151.add(a175);
 		
 		//ChordSimulationUtil.printAll(a175);
 
 		//System.out.println("\033[H\033[2J");
 
-		d054.add(c151);
+		//d054.add(c151);
 		
 		//ChordSimulationUtil.printAll(a175);
 		
-		e229.add(a175);
-		b252.add(d054);
+		//e229.add(a175);
+		//b252.add(d054);
 		
-		ChordSimulationUtil.printAll(a175);
+		//ChordSimulationUtil.printAll(a175);
 
 
-		for(int i =0;i< nodes.size();i++) {
+		/*for(int i =0;i< nodes.size();i++) {
 			ChordNode curr = a175;
 			System.out.println(curr.toString());
 			curr = curr.getFingerTableEntry(0);
-		}
+		}*/
 		
 		//printAll(e);
 		
