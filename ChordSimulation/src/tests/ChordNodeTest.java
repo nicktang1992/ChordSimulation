@@ -26,7 +26,6 @@ public class ChordNodeTest {
 
 		assertFalse(FunctionTest.inInterval(175, 150, true, false, 150));
 
-
 	}
 	
 }
