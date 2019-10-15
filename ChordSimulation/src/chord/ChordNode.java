@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Queue;
 import static chord.Configuration.*;
+import static chord.ChordSimulationUtil.*;
 
 public class ChordNode {
 
@@ -91,7 +92,7 @@ public class ChordNode {
 	
 	private void initFingerTable(ChordNode attachingNode) {
 		// Insert this node to it proper position
-		this.fingerTable[0] = attachingNode.findSuccessor(this.hash+1);
+		this.fingerTable[0] = attachingNode.findSuccessor(addPow(this.getHash(),0));
 		this.predicessor = this.fingerTable[0].predicessor;
 		this.fingerTable[0].predicessor = this;
 		this.predicessor.fingerTable[0] = this;
