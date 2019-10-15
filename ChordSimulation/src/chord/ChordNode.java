@@ -12,7 +12,6 @@ public class ChordNode {
 	public ChordNode[] fingerTable;
 	private int hash;
 	private ChordNode predicessor;
-	private ChordNode successor;
 	
 	/*
 	 * For concurrency implementation 
@@ -101,7 +100,7 @@ public class ChordNode {
 			if(inInterval(
 					this.hash,
 					this.fingerTable[power-1].hash, 
-					true, false,
+					true, true,
 					(this.hash + (int) Math.pow(2, power))%HASH_UPPER_LIMIT
 					)) {
 				this.fingerTable[power] = this.fingerTable[power-1];
@@ -129,7 +128,7 @@ public class ChordNode {
 		if(inInterval(
 				this.hash, 
 				this.fingerTable[power].hash, 
-				true, false, 
+				true, true, 
 				addingNode.hash
 				)) {
 			this.fingerTable[power] = addingNode;
@@ -179,12 +178,9 @@ public class ChordNode {
 	}
 
 	public ChordNode getSuccessor() {
-		return successor;
+		return this.getFingerTableEntry(0);
 	}
 
-	public void setSuccessor(ChordNode successor) {
-		this.successor = successor;
-	}
 
 	/*
 	public Queue<EventMessage> getMessages() {

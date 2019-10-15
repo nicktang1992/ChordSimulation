@@ -71,11 +71,16 @@ public class ChordNodeTest {
 		
 		for(ChordNode n : nodes) {
 			for(int i = 0; i<HASH_LENGTH; i++) {
-				assertEquals(n.getFingerTableEntry(i).getHash(),
+				assertEquals("finger "+ i + " of node "+ n.getHash() + " is " + n.getFingerTableEntry(i).getHash() + " instead of " + getNextResponsibleHash(hashes,addPow(n.getHash(),i)),
+						n.getFingerTableEntry(i).getHash(),
 						getNextResponsibleHash(hashes,addPow(n.getHash(),i)));
 			}
-			assertEquals(n.getPredicessor().getFingerTableEntry(0),n);
+			assertEquals("predicessor of " + n.getHash() + " is " + n.getPredicessor().getHash(),
+					n.getPredicessor().getFingerTableEntry(0),n);
 		}
+		
+		System.out.println();
+		printAll(nodes.get(0));
 		
 	}
 	

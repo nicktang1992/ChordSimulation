@@ -31,16 +31,16 @@ public class Simulation {
 		//c151.add(null);
 		//a175.add(c151);
 		
-		ChordNode n65 = new ChordNode("65");
-		n65.setHash(65);
+		ChordNode n13 = new ChordNode("13");
+		n13.setHash(13);
 		
-		ChordNode n129 = new ChordNode("129");
-		n129.setHash(129);
+		ChordNode n9 = new ChordNode("9");
+		n9.setHash(9);
 		
-		n65.add(null);
-		n129.add(n65);
+		n13.add(null);
+		n9.add(n13);
 		
-		printAll(n65);
+		printAll(n13);
 		
 		//a175.add(null);
 		//c151.add(a175);
