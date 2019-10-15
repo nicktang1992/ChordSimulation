@@ -27,20 +27,27 @@ public class Simulation {
 			System.out.println(nodes.get(i).toString());
 		}
 		System.out.println();
+				
+		//c151.add(null);
+		//a175.add(c151);
+		
 		
 		a175.add(null);
 		c151.add(a175);
 		
-		ChordSimulationUtil.printAll(a175);
+		//ChordSimulationUtil.printAll(a175);
 
-		System.out.println("\033[H\033[2J");
+		//System.out.println("\033[H\033[2J");
 
 		d054.add(c151);
 		
-		ChordSimulationUtil.printAll(a175);
+		//ChordSimulationUtil.printAll(a175);
 		
 		e229.add(a175);
 		b252.add(d054);
+		
+		ChordSimulationUtil.printAll(a175);
+
 
 		for(int i =0;i< nodes.size();i++) {
 			ChordNode curr = a175;
