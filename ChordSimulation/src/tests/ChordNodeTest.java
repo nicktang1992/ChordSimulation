@@ -69,6 +69,7 @@ public class ChordNodeTest {
 			nodes.get(i).add(nodes.get(i-1));
 		}
 		
+		
 		for(ChordNode n : nodes) {
 			for(int i = 0; i<HASH_LENGTH; i++) {
 				assertEquals("finger "+ i + " of node "+ n.getHash() + " is " + n.getFingerTableEntry(i).getHash() + " instead of " + getNextResponsibleHash(hashes,addPow(n.getHash(),i)),
@@ -79,6 +80,24 @@ public class ChordNodeTest {
 					n.getPredecessor().getFingerTableEntry(0),n);
 		}
 		
+		nodes.get(4).remove();
+		hashes.remove((Integer) nodes.get(4).getHash());
+		
+		nodes.remove(4);
+		
+		for(int i = 0;i<hashes.size();i++) {
+			System.out.println(hashes.get(i));
+		}
+		
+		for(ChordNode n : nodes) {
+			for(int i = 0; i<HASH_LENGTH; i++) {
+				assertEquals("finger "+ i + " of node "+ n.getHash() + " is " + n.getFingerTableEntry(i).getHash() + " instead of " + getNextResponsibleHash(hashes,addPow(n.getHash(),i)),
+						n.getFingerTableEntry(i).getHash(),
+						getNextResponsibleHash(hashes,addPow(n.getHash(),i)));
+			}
+			assertEquals("predicessor of " + n.getHash() + " is " + n.getPredecessor().getHash(),
+					n.getPredecessor().getFingerTableEntry(0),n);
+		}
 		System.out.println();
 		printAll(nodes.get(0));
 		

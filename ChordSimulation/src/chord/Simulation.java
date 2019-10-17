@@ -49,20 +49,24 @@ public class Simulation {
 		n93.add(null);
 		n153.add(n93);
 		System.out.println("adding 153 to 93");
-		printNode(n153);
+		//printNode(n153);
 		
 		n14.add(n153);
 		System.out.println("adding 14 to 153");
-		printNode(n153);
+		//printNode(n153);
 
 		n161.add(n14);
 		System.out.println("adding 161 to 14");
-		printNode(n153);
+		//printNode(n153);
 
 		n165.add(n161);
 		System.out.println("adding 165 to 161");
-		printNode(n153);
+		//printNode(n153);
 
+		n93.remove();
+		
+		printAll(n165);
+		
 		//printAll(n14);
 		
 		//a175.add(null);

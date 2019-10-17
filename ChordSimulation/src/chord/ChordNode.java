@@ -145,9 +145,37 @@ public class ChordNode {
 	
 	public void remove() {
 		// Update other finger tables
+		updateOthersOnRemove();
 		// remove successor or predecessor
+		this.getSuccessor().setPredecessor(this.getPredecessor());
+		this.getPredecessor().setSuccessor(this.getSuccessor());
 	}
 	
+	private void updateOthersOnRemove() {
+		for(int power = HASH_LENGTH-1; power > 0; power--) {
+			ChordNode nodePointingCurrentNode = this.findPredecessor(
+					(this.hash - (int) Math.pow(2, power) + HASH_UPPER_LIMIT)
+					%HASH_UPPER_LIMIT
+					);
+			if(nodePointingCurrentNode.getSuccessor().getHash()
+					==(this.hash - (int) Math.pow(2, power) + HASH_UPPER_LIMIT)
+					%HASH_UPPER_LIMIT) {
+				nodePointingCurrentNode = nodePointingCurrentNode.getSuccessor();
+			}
+			nodePointingCurrentNode.updateFingerTablesOnRemove(this,power);
+		}
+	}
+	
+	private void updateFingerTablesOnRemove(ChordNode deletingNode, int power) {
+		System.out.println("removeing n"+ deletingNode.getHash() + " from n"+ this.getHash()+" of power "+ power);
+		if(deletingNode==this) {
+			return;
+		}
+		if(this.getFingerTableEntry(power).getHash()==deletingNode.getHash()) {
+			this.fingerTable[power] = deletingNode.getSuccessor();
+			this.predecessor.updateFingerTablesOnRemove(deletingNode, power);
+		}
+	}
 	
 	public String getIPAddress() {
 		return IPAddress;
@@ -187,6 +215,10 @@ public class ChordNode {
 
 	public ChordNode getSuccessor() {
 		return this.getFingerTableEntry(0);
+	}
+	
+	public void setSuccessor(ChordNode successor) {
+		this.fingerTable[0] = successor;
 	}
 
 
