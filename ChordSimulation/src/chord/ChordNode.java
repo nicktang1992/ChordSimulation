@@ -118,6 +118,11 @@ public class ChordNode {
 					(this.hash - (int) Math.pow(2, power) + HASH_UPPER_LIMIT)
 					%HASH_UPPER_LIMIT
 					);
+			if(nodePointingCurrentNode.getSuccessor().getHash()
+					==(this.hash - (int) Math.pow(2, power) + HASH_UPPER_LIMIT)
+					%HASH_UPPER_LIMIT) {
+				nodePointingCurrentNode = nodePointingCurrentNode.getSuccessor();
+			}
 			nodePointingCurrentNode.updateFingerTables(this,power);
 		}
 	}
