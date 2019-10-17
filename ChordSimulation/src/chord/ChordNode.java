@@ -12,7 +12,7 @@ public class ChordNode {
 	private String IPAddress;
 	public ChordNode[] fingerTable;
 	private int hash;
-	private ChordNode predicessor;
+	private ChordNode predecessor;
 	
 	/*
 	 * For concurrency implementation 
@@ -82,7 +82,7 @@ public class ChordNode {
 		if(attachingNode == null) {
 			for(int power = 0; power < HASH_LENGTH; power++) {
 				this.fingerTable[power] = this;
-				this.predicessor = this;
+				this.predecessor = this;
 			}
 		}else {
 			initFingerTable(attachingNode);
@@ -93,9 +93,9 @@ public class ChordNode {
 	private void initFingerTable(ChordNode attachingNode) {
 		// Insert this node to it proper position
 		this.fingerTable[0] = attachingNode.findSuccessor(addPow(this.getHash(),0));
-		this.predicessor = this.fingerTable[0].predicessor;
-		this.fingerTable[0].predicessor = this;
-		this.predicessor.fingerTable[0] = this;
+		this.predecessor = this.fingerTable[0].predecessor;
+		this.fingerTable[0].predecessor = this;
+		this.predecessor.fingerTable[0] = this;
 		
 		for(int power = 1; power < HASH_LENGTH; power++) {
 			if(inInterval(
@@ -138,12 +138,14 @@ public class ChordNode {
 				addingNode.hash
 				)) {
 			this.fingerTable[power] = addingNode;
-			this.predicessor.updateFingerTables(addingNode, power);
+			this.predecessor.updateFingerTables(addingNode, power);
 		}
 	}
 	
+	
 	public void remove() {
-		System.out.println("Removing node to be implemented");
+		// Update other finger tables
+		// remove successor or predecessor
 	}
 	
 	
@@ -175,12 +177,12 @@ public class ChordNode {
 		this.hash = hash;
 	}
 
-	public ChordNode getPredicessor() {
-		return predicessor;
+	public ChordNode getPredecessor() {
+		return predecessor;
 	}
 
-	public void setPredicessor(ChordNode predicessor) {
-		this.predicessor = predicessor;
+	public void setPredecessor(ChordNode predecessor) {
+		this.predecessor = predecessor;
 	}
 
 	public ChordNode getSuccessor() {

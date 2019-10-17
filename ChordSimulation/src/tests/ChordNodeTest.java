@@ -75,8 +75,8 @@ public class ChordNodeTest {
 						n.getFingerTableEntry(i).getHash(),
 						getNextResponsibleHash(hashes,addPow(n.getHash(),i)));
 			}
-			assertEquals("predicessor of " + n.getHash() + " is " + n.getPredicessor().getHash(),
-					n.getPredicessor().getFingerTableEntry(0),n);
+			assertEquals("predicessor of " + n.getHash() + " is " + n.getPredecessor().getHash(),
+					n.getPredecessor().getFingerTableEntry(0),n);
 		}
 		
 		System.out.println();
