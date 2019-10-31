@@ -2,12 +2,27 @@ package chord;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import static chord.ChordSimulationUtil.*;
 
 public class Simulation {
 
 	public static void main(String[] args) {
+		/*
+		Scanner myObj = new Scanner(System.in);  // Create a Scanner object
 		System.out.println(ChordNode.hashIP("100.90.9.0"));
+		System.out.println("Menu");
+		System.out.println("1.Add an IP address");
+		System.out.println("2.Delete an IP address");
+		System.out.println("3.Search an IP address");
+	    System.out.println("Enter your choice");
+	    
+	    String input = myObj.nextLine();  // Read user input
+	    System.out.println("Please input your IP address");
+	    if(input == "1") {
+	    	
+	    }
 		
 		ArrayList<ChordNode> nodes = new ArrayList();
 		
@@ -30,7 +45,7 @@ public class Simulation {
 				
 		//c151.add(null);
 		//a175.add(c151);
-		
+		*/
 		ChordNode n93 = new ChordNode("93");
 		n93.setHash(93);
 		
@@ -62,10 +77,14 @@ public class Simulation {
 		n165.add(n161);
 		System.out.println("adding 165 to 161");
 		//printNode(n153);
+		
+		printAll(n165);
+		System.out.println();
 
 		n93.remove();
 		
 		printAll(n165);
+		
 		
 		//printAll(n14);
 		

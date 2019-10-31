@@ -8,12 +8,10 @@ import static chord.ChordSimulationUtil.*;
 
 public class ChordNode {
 
-
 	private String IPAddress;
 	public ChordNode[] fingerTable;
 	private int hash;
 	private ChordNode predecessor;
-	
 	/*
 	 * For concurrency implementation 
 	 */
@@ -167,7 +165,7 @@ public class ChordNode {
 	}
 	
 	private void updateFingerTablesOnRemove(ChordNode deletingNode, int power) {
-		System.out.println("removeing n"+ deletingNode.getHash() + " from n"+ this.getHash()+" of power "+ power);
+		System.out.println("removing n"+ deletingNode.getHash() + " from n"+ this.getHash()+" of power "+ power);
 		if(deletingNode==this) {
 			return;
 		}

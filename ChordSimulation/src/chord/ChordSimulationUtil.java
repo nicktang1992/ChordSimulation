@@ -18,7 +18,7 @@ public class ChordSimulationUtil {
 		for(int power = 0; power<HASH_LENGTH; power++) {
 			System.out.println("    Finger Table index " + power + " : " + currentNode.fingerTable[power].getHash());
 		}
-		System.out.println("    Predicessor : "+ currentNode.getPredecessor().getHash());
+		System.out.println("    Predecessor : "+ currentNode.getPredecessor().getHash());
 		System.out.println();
 	}
 	
