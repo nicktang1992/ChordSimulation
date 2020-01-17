@@ -7,6 +7,7 @@ import static chord.Configuration.*;
 import static chord.ChordSimulationUtil.*;
 
 public class ChordNode {
+	
 
 	private String IPAddress;
 	public ChordNode[] fingerTable;
